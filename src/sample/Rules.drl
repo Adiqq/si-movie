@@ -1,0 +1,41 @@
+package sample
+
+import java.util.ArrayList
+import javafx.scene.control.ChoiceDialog
+import java.util.Optional
+import javafx.scene.control.Label
+
+global javafx.scene.control.Label result
+
+declare Option
+    text: String
+end
+
+declare Question
+    text: String
+    options: ArrayList
+end
+
+declare Answer extends Option
+    question: Question
+end
+
+declare Solution extends Option end
+
+rule "Insert initial question"
+    when
+    then
+        showOptions();
+end
+
+function void showOptions(){
+    ChoiceDialog<String> dialog = new ChoiceDialog<>("one", "one", "two", "three");
+
+    dialog.setTitle("Pytanie");
+    dialog.setHeaderText("Select a Book:");
+    dialog.setContentText("Book:");
+
+    Optional<String> result = dialog.showAndWait();
+
+    result.ifPresent(System.out::println);
+}
