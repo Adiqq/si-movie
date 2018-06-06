@@ -20,7 +20,7 @@ public class Controller {
 
     public void start(ActionEvent actionEvent) {
         KieSession ksession = kc.newKieSession("RomanticKS");
-        ksession.setGlobal( "result",
+        ksession.setGlobal( "resultLabel",
                 this.result );
         ksession.fireAllRules();
     }

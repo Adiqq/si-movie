@@ -1,19 +1,16 @@
 package sample
 
-import java.util.ArrayList
 import javafx.scene.control.ChoiceDialog
 import java.util.Optional
 import javafx.scene.control.Label
-
-global javafx.scene.control.Label result
+global javafx.scene.control.Label resultLabel
 
 declare Option
     text: String
 end
 
-declare Question
-    text: String
-    options: ArrayList
+declare Question extends Option
+    options: Option[]
 end
 
 declare Answer extends Option
@@ -22,20 +19,68 @@ end
 
 declare Solution extends Option end
 
+function Option showOptions(Question q){
+    String[] options = new String[q.getOptions().length];
+
+    for(int i = 0; i < q.getOptions().length; i++){
+        options[i] = q.getOptions()[i].getText();
+    }
+    ChoiceDialog<String> dialog = new ChoiceDialog<>(options[0], options);
+
+    dialog.setTitle("Pytanie");
+    dialog.setHeaderText(q.getText());
+    dialog.setContentText("Odpowiedź");
+
+    Optional<String> result = dialog.showAndWait();
+    if(result.isPresent()){
+        for(int i = 0; i < q.getOptions().length; i++){
+            if(q.getOptions()[i].getText() == result.get()){
+                return q.getOptions()[i];
+            }
+        }
+    }
+    return null;
+ }
+
 rule "Insert initial question"
     when
     then
-        showOptions();
+        Question q = new Question();
+        q.setText("Who are you watching it with?");
+        Option[] answers =  {
+                new Answer("My main squeeze", q),
+                new Answer("My girlfriends", q),
+                new Solution("My family")
+        };
+        q.setOptions(answers);
+        insert(q);
 end
 
-function void showOptions(){
-    ChoiceDialog<String> dialog = new ChoiceDialog<>("one", "one", "two", "three");
+rule "Show options on new question"
+    when
+        q : Question()
+    then
+        insert(showOptions(q));
+end
 
-    dialog.setTitle("Pytanie");
-    dialog.setHeaderText("Select a Book:");
-    dialog.setContentText("Book:");
+rule "Show result on solution"
+    when
+        s : Solution()
+    then
+        resultLabel.setText("The result is: " + s.getText());
+end
 
-    Optional<String> result = dialog.showAndWait();
-
-    result.ifPresent(System.out::println);
-}
+rule "Do you care if he enjoys it?"
+    when
+        Answer(question.getText() == "Who are you watching it with?") and
+        Answer(text == "My main squeeze")
+    then
+        Question q = new Question();
+        q.setText("Do you care if he enjoys it?");
+        Option[] answers =  {
+                new Solution("The Notebook"),
+                new Answer("Yes", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
