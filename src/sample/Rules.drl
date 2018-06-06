@@ -326,7 +326,7 @@ rule "Little kids or young adults?"
         };
         q.setOptions(answers);
         insert(q);
- end
+end
 
 rule "Male or female lead?"
      when
@@ -413,6 +413,52 @@ rule "Is Gosling head over heels in love?"
         Option[] answers =  {
              new Answer("If it's not starring me then no", q),
              new Solution("Yes", "Lars and the Real Girl")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "How many love triangles?"
+    when
+        Answer(question.text == "Do you like black & white films?") and
+        Answer(text == "Maybe something more modern")
+    then
+        Question q = new Question();
+        q.setText("How many love triangles?");
+        Option[] answers =  {
+               new Solution("More than two and it's hard to follow", "The holiday"),
+               new Solution("I love complexity", "Love Actually")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "How about a princess movie?"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "Something for the kiddies, please!")
+    then
+        Question q = new Question();
+        q.setText("How about a princess movie?");
+        Option[] answers =  {
+                new Solution("My son will barf", "Moonrise kingdom"),
+                new Solution("The girls would love that", "Enchanted"),
+                new Solution("Something gender neutral", "The Princess Bride")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Classic or 21st century story?"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "We have teens in the house")
+    then
+        Question q = new Question();
+        q.setText("Classic or 21st century story?");
+        Option[] answers =  {
+                new Answer("Let's teach them a thing or two", q),
+                new Answer("They roll their eyes at anything \"old\"", q)
         };
         q.setOptions(answers);
         insert(q);
