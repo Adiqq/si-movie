@@ -74,7 +74,7 @@ end
 
 rule "Do you care if he enjoys it?"
     when
-        Answer(question.getText() == "Who are you watching it with?") and
+        Answer(question.text == "Who are you watching it with?") and
         Answer(text == "My main squeeze")
     then
         Question q = new Question();
