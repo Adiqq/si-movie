@@ -17,7 +17,9 @@ declare Answer extends Option
     question: Question
 end
 
-declare Solution extends Option end
+declare Solution extends Option
+    finalAnswer: String
+end
 
 function Option showOptions(Question q){
     String[] options = new String[q.getOptions().length];
@@ -50,7 +52,7 @@ rule "Insert initial question"
         Option[] answers =  {
                 new Answer("My main squeeze", q),
                 new Answer("My girlfriends", q),
-                new Solution("My family")
+                new Answer("My family", q)
         };
         q.setOptions(answers);
         insert(q);
@@ -67,7 +69,7 @@ rule "Show result on solution"
     when
         s : Solution()
     then
-        resultLabel.setText("The result is: " + s.getText());
+        resultLabel.setText("The result is: " + s.getFinalAnswer());
 end
 
 rule "Do you care if he enjoys it?"
@@ -78,7 +80,7 @@ rule "Do you care if he enjoys it?"
         Question q = new Question();
         q.setText("Do you care if he enjoys it?");
         Option[] answers =  {
-                new Solution("The Notebook"),
+                new Solution("No", "The Notebook"),
                 new Answer("Yes", q)
         };
         q.setOptions(answers);
