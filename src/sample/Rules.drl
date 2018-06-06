@@ -86,3 +86,33 @@ rule "Do you care if he enjoys it?"
         q.setOptions(answers);
         insert(q);
 end
+
+rule "Anyone recently getting over a breakup?"
+    when
+        Answer(question.text == "Who are you watching it with?") and
+        Answer(text == "My girlfriends")
+    then
+        Question q = new Question();
+        q.setText("Anyone recently getting over a breakup?");
+        Option[] answers =  {
+                new Answer("We're good!", q),
+                new Answer("Let's avoid the heartache", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like animation?"
+    when
+        Answer(question.text == "Who are you watching it with?") and
+        Answer(text == "My family")
+    then
+        Question q = new Question();
+        q.setText("Do you like animation?");
+        Option[] answers =  {
+                new Answer("Yes", q),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
