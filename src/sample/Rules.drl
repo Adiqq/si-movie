@@ -162,3 +162,168 @@ rule "Would a hunky male help?"
         q.setOptions(answers);
         insert(q);
 end
+
+rule "Pixar or disney?"
+    when
+        Answer(question.text == "Do you like animation?") and
+        Answer(text == "Yes")
+    then
+        Question q = new Question();
+        q.setText("Pixar or disney?");
+        Option[] answers =  {
+                new Answer("Pixar", q),
+                new Answer("Disney", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do holidays make you swoon?"
+    when
+        Answer(question.text == "Do you like animation?") and
+        Answer(text == "No")
+    then
+        Question q = new Question();
+        q.setText("Do holidays make you swoon?");
+        Option[] answers =  {
+                new Answer("I wish it was Christmas everyday", q),
+                new Answer("Not really", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Military fan?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "I love explosions!")
+    then
+        Question q = new Question();
+        q.setText("Military fan?");
+        Option[] answers =  {
+                new Solution("About face!", "Top Gun"),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Starring an IT girl?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "Brains & beauty!")
+    then
+        Question q = new Question();
+        q.setText("Starring an IT girl?");
+        Option[] answers =  {
+                new Solution("Yes", "Silver Linings Playbook"),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Judd Apatow film?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "Let's stick to the \"corn\" in \"romcom\"")
+    then
+        Question q = new Question();
+        q.setText("Starring an IT girl?");
+        Option[] answers =  {
+                new Answer("Yes, please!", q),
+                new Answer("Pass", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like Tim Burton?"
+    when
+        Answer(question.text == "Would a hunky male help?") and
+        Answer(text == "I prefer a mystery man")
+    then
+        Question q = new Question();
+        q.setText("Do you like Tim Burton?");
+        Option[] answers =  {
+                new Solution("Bring on the darkness!", "Edward Scissorhands"),
+                new Answer("Something less morose", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is it Ryan Gosling?"
+    when
+        Answer(question.text == "Would a hunky male help?") and
+        Answer(text == "Yes please!")
+    then
+        Question q = new Question();
+        q.setText("Is it Ryan Gosling?");
+        Option[] answers =  {
+                new Answer("Duh", q),
+                new Answer("Over Him", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "With robots or humans?"
+    when
+        Answer(question.text == "Pixar or disney?") and
+        Answer(text == "Pixar")
+    then
+        Question q = new Question();
+        q.setText("With robots or humans?");
+        Option[] answers =  {
+                new Solution("Robots", "WALL-E"),
+                new Solution("Humans", "Up")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Are you a lover or a fighter?"
+    when
+        Answer(question.text == "Pixar or disney?") and
+        Answer(text == "Disney")
+    then
+        Question q = new Question();
+        q.setText("Are you a lover or a fighter?");
+        Option[] answers =  {
+                new Solution("Fighter", "Tangled"),
+                new Solution("Lover", "Beauty and the Beast")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like black & white films?"
+       when
+           Answer(question.text == "Do holidays make you swoon?") and
+           Answer(text == "I wish it was Christmas everyday")
+       then
+           Question q = new Question();
+           q.setText("Do you like black & white films?");
+           Option[] answers =  {
+                   new Solution("Always love the classics", "It's a Wonderful Life"),
+                   new Answer("Maybe something more modern", q)
+           };
+           q.setOptions(answers);
+           insert(q);
+end
+
+rule "Little kids or young adults?"
+        when
+            Answer(question.text == "Do holidays make you swoon?") and
+            Answer(text == "Not really")
+        then
+            Question q = new Question();
+            q.setText("Little kids or young adults?");
+            Option[] answers =  {
+                    new Answer("Something for the kiddies, please!", q),
+                    new Answer("We have teens in the house", q)
+            };
+            q.setOptions(answers);
+            insert(q);
+ end
