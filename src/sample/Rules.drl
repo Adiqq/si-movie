@@ -96,7 +96,7 @@ rule "Anyone recently getting over a breakup?"
         q.setText("Anyone recently getting over a breakup?");
         Option[] answers =  {
                 new Answer("We're good!", q),
-                new Answer("Let's avoid the heartache", q)
+                new Answer("Let's avoid the heartache!", q)
         };
         q.setOptions(answers);
         insert(q);
@@ -112,6 +112,52 @@ rule "Do you like animation?"
         Option[] answers =  {
                 new Answer("Yes", q),
                 new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Action packed or thought provoking?"
+    when
+        Answer(question.text == "Do you care if he enjoys it?") and
+        Answer(text == "Yes")
+    then
+        Question q = new Question();
+        q.setText("Action packed or thought provoking?");
+        Option[] answers =  {
+                new Answer("I love explosions!", q),
+                new Answer("Brains & beauty!", q),
+                new Answer("Let's stick to the \"corn\" in \"romcom\"", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you want to cry?"
+    when
+        Answer(question.text == "Anyone recently getting over a breakup?") and
+        Answer(text == "We're good!")
+    then
+        Question q = new Question();
+        q.setText("Do you want to cry?");
+        Option[] answers =  {
+                new Answer("Load up on the waterproof mascara!", q),
+                new Answer("I'd rather not", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Would a hunky male help?"
+    when
+        Answer(question.text == "Anyone recently getting over a breakup?") and
+        Answer(text == "Let's avoid the heartache!")
+    then
+        Question q = new Question();
+        q.setText("Would a hunky male help?");
+        Option[] answers =  {
+                new Answer("I prefer a mystery man", q),
+                new Answer("Yes please!", q)
         };
         q.setOptions(answers);
         insert(q);
