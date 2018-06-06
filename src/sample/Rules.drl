@@ -29,9 +29,9 @@ function Option showOptions(Question q){
     }
     ChoiceDialog<String> dialog = new ChoiceDialog<>(options[0], options);
 
-    dialog.setTitle("Pytanie");
+    dialog.setTitle("Question");
     dialog.setHeaderText(q.getText());
-    dialog.setContentText("Odpowiedź");
+    dialog.setContentText("Answer:");
 
     Optional<String> result = dialog.showAndWait();
     if(result.isPresent()){
