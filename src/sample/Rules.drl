@@ -299,31 +299,123 @@ rule "Are you a lover or a fighter?"
 end
 
 rule "Do you like black & white films?"
-       when
-           Answer(question.text == "Do holidays make you swoon?") and
-           Answer(text == "I wish it was Christmas everyday")
-       then
-           Question q = new Question();
-           q.setText("Do you like black & white films?");
-           Option[] answers =  {
-                   new Solution("Always love the classics", "It's a Wonderful Life"),
-                   new Answer("Maybe something more modern", q)
-           };
-           q.setOptions(answers);
-           insert(q);
+    when
+        Answer(question.text == "Do holidays make you swoon?") and
+        Answer(text == "I wish it was Christmas everyday")
+    then
+        Question q = new Question();
+        q.setText("Do you like black & white films?");
+        Option[] answers =  {
+               new Solution("Always love the classics", "It's a Wonderful Life"),
+               new Answer("Maybe something more modern", q)
+        };
+        q.setOptions(answers);
+        insert(q);
 end
 
 rule "Little kids or young adults?"
-        when
-            Answer(question.text == "Do holidays make you swoon?") and
-            Answer(text == "Not really")
-        then
-            Question q = new Question();
-            q.setText("Little kids or young adults?");
-            Option[] answers =  {
-                    new Answer("Something for the kiddies, please!", q),
-                    new Answer("We have teens in the house", q)
-            };
-            q.setOptions(answers);
-            insert(q);
+    when
+        Answer(question.text == "Do holidays make you swoon?") and
+        Answer(text == "Not really")
+    then
+        Question q = new Question();
+        q.setText("Little kids or young adults?");
+        Option[] answers =  {
+                new Answer("Something for the kiddies, please!", q),
+                new Answer("We have teens in the house", q)
+        };
+        q.setOptions(answers);
+        insert(q);
  end
+
+rule "Male or female lead?"
+     when
+         Answer(question.text == "Military fan?") and
+         Answer(text == "No")
+     then
+         Question q = new Question();
+         q.setText("Male or female lead?");
+         Option[] answers =  {
+                 new Solution("Girls have muscle too!", "Mr. and Mrs. Smith"),
+                 new Solution("Male", "Bourne identity")
+         };
+         q.setOptions(answers);
+         insert(q);
+end
+
+rule "Foreign film?"
+     when
+         Answer(question.text == "Starring an IT girl?") and
+         Answer(text == "No")
+     then
+         Question q = new Question();
+         q.setText("Foreign film?");
+         Option[] answers =  {
+                 new Solution("Oui", "Amélie"),
+                 new Answer("No", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+end
+
+rule "Guys only?"
+     when
+         Answer(question.text == "Judd Apatow film?") and
+         Answer(text == "Pass")
+     then
+         Question q = new Question();
+         q.setText("Guys only?");
+         Option[] answers =  {
+                 new Answer("Bromance is the best", q),
+                 new Answer("Girl Power!", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+rule "Are thieves involved?"
+    when
+        Answer(question.text == "Do you like Tim Burton?") and
+        Answer(text == "Something less morose")
+    then
+        Question q = new Question();
+        q.setText("Are thieves involved?");
+        Option[] answers =  {
+             new Solution("I like a bad guy, but not a criminal", "Gone With the Wind"),
+             new Answer("I love danger", q)
+        };
+        q.setOptions(answers);
+    insert(q);
+end
+
+rule "Indie eye candy or classic hunks?"
+    when
+        Answer(question.text == "Is it Ryan Gosling?") and
+        Answer(text == "Over Him")
+    then
+        Question q = new Question();
+        q.setText("Indie eye candy or classic hunks?");
+        Option[] answers =  {
+             new Solution("Indie", "500 Days of Summer"),
+             new Answer("Can't argue with a classic", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is Gosling head over heels in love?"
+    when
+        Answer(question.text == "Is it Ryan Gosling?") and
+        Answer(text == "Duh")
+    then
+        Question q = new Question();
+        q.setText("Is Gosling head over heels in love?");
+        Option[] answers =  {
+             new Answer("If it's not starring me then no", q),
+             new Solution("Yes", "Lars and the Real Girl")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+
