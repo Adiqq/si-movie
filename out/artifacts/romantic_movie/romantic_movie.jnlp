@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="romantic_movie.jnlp">
+  <information>
+    <title>Romantic movie</title>
+    <vendor>Unknown</vendor>
+    <description>romantic-movie</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="activation-1.1.1.jar" size="69409" download="eager" />
+    <jar href="aether-api-1.1.0.jar" size="136369" download="eager" />
+    <jar href="aether-connector-basic-1.1.0.jar" size="36725" download="eager" />
+    <jar href="aether-impl-1.1.0.jar" size="172775" download="eager" />
+    <jar href="aether-spi-1.1.0.jar" size="30674" download="eager" />
+    <jar href="aether-transport-file-1.1.0.jar" size="8921" download="eager" />
+    <jar href="aether-transport-http-1.1.0.jar" size="36707" download="eager" />
+    <jar href="aether-transport-wagon-1.1.0.jar" size="25332" download="eager" />
+    <jar href="aether-util-1.1.0.jar" size="149584" download="eager" />
+    <jar href="ant-1.8.4.jar" size="1941731" download="eager" />
+    <jar href="ant-launcher-1.8.4.jar" size="18429" download="eager" />
+    <jar href="antlr-runtime-3.5.2.jar" size="167761" download="eager" />
+    <jar href="aopalliance-1.0.jar" size="4467" download="eager" />
+    <jar href="cdi-api-1.2.jar" size="71075" download="eager" />
+    <jar href="commons-codec-1.10.jar" size="284184" download="eager" />
+    <jar href="commons-collections4-4.1.jar" size="751238" download="eager" />
+    <jar href="commons-lang3-3.4.jar" size="434678" download="eager" />
+    <jar href="curvesapi-1.04.jar" size="98365" download="eager" />
+    <jar href="drools-beliefs-7.7.0.Final.jar" size="76626" download="eager" />
+    <jar href="drools-compiler-7.7.0.Final.jar" size="1686480" download="eager" />
+    <jar href="drools-core-7.7.0.Final.jar" size="3705220" download="eager" />
+    <jar href="drools-decisiontables-7.7.0.Final.jar" size="64292" download="eager" />
+    <jar href="drools-persistence-api-7.7.0.Final.jar" size="26551" download="eager" />
+    <jar href="drools-persistence-jpa-7.7.0.Final.jar" size="62835" download="eager" />
+    <jar href="drools-pmml-7.7.0.Final.jar" size="542420" download="eager" />
+    <jar href="drools-scorecards-7.7.0.Final.jar" size="38251" download="eager" />
+    <jar href="drools-templates-7.7.0.Final.jar" size="59532" download="eager" />
+    <jar href="drools-verifier-7.7.0.Final.jar" size="220891" download="eager" />
+    <jar href="ecj-4.4.2.jar" size="2310271" download="eager" />
+    <jar href="guava-20.0.jar" size="2442625" download="eager" />
+    <jar href="guice-4.0-no_aop.jar" size="423560" download="eager" />
+    <jar href="hamcrest-core-1.3.jar" size="45024" download="eager" />
+    <jar href="hibernate-jpa-2.1-api-1.0.0.Final.jar" size="113371" download="eager" />
+    <jar href="httpclient-4.5.3.jar" size="747794" download="eager" />
+    <jar href="httpcore-4.4.6.jar" size="323824" download="eager" />
+    <jar href="itext-2.1.7.jar" size="1130070" download="eager" />
+    <jar href="javassist-3.20.0-GA.jar" size="750581" download="eager" />
+    <jar href="javax.inject-1.jar" size="2497" download="eager" />
+    <jar href="javax.interceptor-api-1.2.jar" size="24404" download="eager" />
+    <jar href="jaxb-core-2.2.11.jar" size="252336" download="eager" />
+    <jar href="jaxb-impl-2.2.11.jar" size="1047863" download="eager" />
+    <jar href="jboss-jaxb-api_2.2_spec-1.0.4.Final.jar" size="105446" download="eager" />
+    <jar href="jboss-transaction-api_1.2_spec-1.0.1.Final.jar" size="28352" download="eager" />
+    <jar href="jcl-over-slf4j-1.7.25.jar" size="16515" download="eager" />
+    <jar href="jsoup-1.8.3.jar" size="315320" download="eager" />
+    <jar href="junit-4.12.jar" size="314932" download="eager" />
+    <jar href="kie-api-7.7.0.Final.jar" size="221277" download="eager" />
+    <jar href="kie-ci-7.7.0.Final.jar" size="46627" download="eager" />
+    <jar href="kie-internal-7.7.0.Final.jar" size="249819" download="eager" />
+    <jar href="kie-soup-commons-7.7.0.Final.jar" size="19581" download="eager" />
+    <jar href="kie-soup-maven-integration-7.7.0.Final.jar" size="66339" download="eager" />
+    <jar href="kie-soup-maven-support-7.7.0.Final.jar" size="16895" download="eager" />
+    <jar href="kie-soup-project-datamodel-api-7.7.0.Final.jar" size="40505" download="eager" />
+    <jar href="kie-soup-project-datamodel-commons-7.7.0.Final.jar" size="43632" download="eager" />
+    <jar href="log4j-1.2.17.jar" size="489884" download="eager" />
+    <jar href="maven-aether-provider-3.3.9.jar" size="66858" download="eager" />
+    <jar href="maven-artifact-3.3.9.jar" size="55018" download="eager" />
+    <jar href="maven-builder-support-3.3.9.jar" size="14873" download="eager" />
+    <jar href="maven-compat-3.3.9.jar" size="290337" download="eager" />
+    <jar href="maven-core-3.3.9.jar" size="637905" download="eager" />
+    <jar href="maven-model-3.3.9.jar" size="163977" download="eager" />
+    <jar href="maven-model-builder-3.3.9.jar" size="177014" download="eager" />
+    <jar href="maven-plugin-api-3.3.9.jar" size="47473" download="eager" />
+    <jar href="maven-repository-metadata-3.3.9.jar" size="27289" download="eager" />
+    <jar href="maven-settings-3.3.9.jar" size="44325" download="eager" />
+    <jar href="maven-settings-builder-3.3.9.jar" size="43024" download="eager" />
+    <jar href="mvel2-2.4.0.Final.jar" size="1097011" download="eager" />
+    <jar href="org.eclipse.sisu.inject-0.3.2.jar" size="377642" download="eager" />
+    <jar href="org.eclipse.sisu.plexus-0.3.2.jar" size="205421" download="eager" />
+    <jar href="plexus-cipher-1.7.jar" size="13350" download="eager" />
+    <jar href="plexus-classworlds-2.5.2.jar" size="52684" download="eager" />
+    <jar href="plexus-component-annotations-1.6.jar" size="4265" download="eager" />
+    <jar href="plexus-interpolation-1.21.jar" size="62458" download="eager" />
+    <jar href="plexus-sec-dispatcher-1.3.jar" size="28555" download="eager" />
+    <jar href="plexus-utils-3.0.22.jar" size="244897" download="eager" />
+    <jar href="poi-3.15.jar" size="2579580" download="eager" />
+    <jar href="poi-ooxml-3.15.jar" size="1338241" download="eager" />
+    <jar href="poi-ooxml-schemas-3.15.jar" size="5859007" download="eager" />
+    <jar href="protobuf-java-2.6.0.jar" size="596435" download="eager" />
+    <jar href="romantic_movie.jar" size="8685" download="eager" />
+    <jar href="slf4j-api-1.7.12.jar" size="32127" download="eager" />
+    <jar href="slf4j-api-1.7.25.jar" size="41203" download="eager" />
+    <jar href="slf4j-log4j12-1.7.12.jar" size="8860" download="eager" />
+    <jar href="stax-api-1.0-2.jar" size="23346" download="eager" />
+    <jar href="wagon-http-3.0.0.jar" size="11378" download="eager" />
+    <jar href="wagon-http-shared-3.0.0.jar" size="36181" download="eager" />
+    <jar href="wagon-provider-api-3.0.0.jar" size="55258" download="eager" />
+    <jar href="xmlbeans-2.6.0.jar" size="2730866" download="eager" />
+    <jar href="xmlpull-1.1.3.1.jar" size="7188" download="eager" />
+    <jar href="xpp3_min-1.1.4c.jar" size="24956" download="eager" />
+    <jar href="xstream-1.4.10.jar" size="589803" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sample.Main"  name="romantic-movie" />
+  <update check="background"/>
+</jnlp>
