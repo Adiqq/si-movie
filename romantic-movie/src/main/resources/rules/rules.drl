@@ -1,0 +1,776 @@
+package sample
+
+import java.util.Optional
+import javax.swing.JLabel
+import javax.swing.JOptionPane
+global javax.swing.JLabel resultLabel
+
+declare Option
+    text: String
+end
+
+declare Question extends Option
+    options: Option[]
+end
+
+declare Answer extends Option
+    question: Question
+end
+
+declare Solution extends Option
+    finalAnswer: String
+end
+
+function Option showOptions(Question q){
+    String[] options = new String[q.getOptions().length];
+
+    for(int i = 0; i < q.getOptions().length; i++){
+        options[i] = q.getOptions()[i].getText();
+    }
+    
+ 	String selectedValue = (String) JOptionPane.showInputDialog(null,
+             q.getText(), "Question",
+             JOptionPane.INFORMATION_MESSAGE, null,
+             options, options[0]);   
+    for(int i = 0; i < q.getOptions().length; i++){
+        if(q.getOptions()[i].getText() == selectedValue){
+            return q.getOptions()[i];
+        }
+    }
+    return null;
+ }
+
+rule "Insert initial question"
+    when
+    then
+        Question q = new Question();
+        q.setText("Who are you watching it with?");
+        Option[] answers =  {
+                new Answer("My main squeeze", q),
+                new Answer("My girlfriends", q),
+                new Answer("My family", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Show options on new question"
+    when
+        q : Question()
+    then
+        insert(showOptions(q));
+end
+
+rule "Show result on solution"
+    when
+        s : Solution()
+    then
+        resultLabel.setText("The result is: " + s.getFinalAnswer());
+end
+
+rule "Do you care if he enjoys it?"
+    when
+        Answer(question.text == "Who are you watching it with?") and
+        Answer(text == "My main squeeze")
+    then
+        Question q = new Question();
+        q.setText("Do you care if he enjoys it?");
+        Option[] answers =  {
+                new Solution("No", "The Notebook"),
+                new Answer("Yes", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Anyone recently getting over a breakup?"
+    when
+        Answer(question.text == "Who are you watching it with?") and
+        Answer(text == "My girlfriends")
+    then
+        Question q = new Question();
+        q.setText("Anyone recently getting over a breakup?");
+        Option[] answers =  {
+                new Answer("We're good!", q),
+                new Answer("Let's avoid the heartache!", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like animation?"
+    when
+        Answer(question.text == "Who are you watching it with?") and
+        Answer(text == "My family")
+    then
+        Question q = new Question();
+        q.setText("Do you like animation?");
+        Option[] answers =  {
+                new Answer("Yes", q),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Action packed or thought provoking?"
+    when
+        Answer(question.text == "Do you care if he enjoys it?") and
+        Answer(text == "Yes")
+    then
+        Question q = new Question();
+        q.setText("Action packed or thought provoking?");
+        Option[] answers =  {
+                new Answer("I love explosions!", q),
+                new Answer("Brains & beauty!", q),
+                new Answer("Let's stick to the \"corn\" in \"romcom\"", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you want to cry?"
+    when
+        Answer(question.text == "Anyone recently getting over a breakup?") and
+        Answer(text == "We're good!")
+    then
+        Question q = new Question();
+        q.setText("Do you want to cry?");
+        Option[] answers =  {
+                new Answer("Load up on the waterproof mascara!", q),
+                new Answer("I'd rather not", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Would a hunky male help?"
+    when
+        Answer(question.text == "Anyone recently getting over a breakup?") and
+        Answer(text == "Let's avoid the heartache!")
+    then
+        Question q = new Question();
+        q.setText("Would a hunky male help?");
+        Option[] answers =  {
+                new Answer("I prefer a mystery man", q),
+                new Answer("Yes please!", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Pixar or disney?"
+    when
+        Answer(question.text == "Do you like animation?") and
+        Answer(text == "Yes")
+    then
+        Question q = new Question();
+        q.setText("Pixar or disney?");
+        Option[] answers =  {
+                new Answer("Pixar", q),
+                new Answer("Disney", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do holidays make you swoon?"
+    when
+        Answer(question.text == "Do you like animation?") and
+        Answer(text == "No")
+    then
+        Question q = new Question();
+        q.setText("Do holidays make you swoon?");
+        Option[] answers =  {
+                new Answer("I wish it was Christmas everyday", q),
+                new Answer("Not really", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Military fan?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "I love explosions!")
+    then
+        Question q = new Question();
+        q.setText("Military fan?");
+        Option[] answers =  {
+                new Solution("About face!", "Top Gun"),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Starring an IT girl?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "Brains & beauty!")
+    then
+        Question q = new Question();
+        q.setText("Starring an IT girl?");
+        Option[] answers =  {
+                new Solution("Yes", "Silver Linings Playbook"),
+                new Answer("No", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Judd Apatow film?"
+    when
+        Answer(question.text == "Action packed or thought provoking?") and
+        Answer(text == "Let's stick to the \"corn\" in \"romcom\"")
+    then
+        Question q = new Question();
+        q.setText("Starring an IT girl?");
+        Option[] answers =  {
+                new Answer("Yes, please!", q),
+                new Answer("Pass", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like Tim Burton?"
+    when
+        Answer(question.text == "Would a hunky male help?") and
+        Answer(text == "I prefer a mystery man")
+    then
+        Question q = new Question();
+        q.setText("Do you like Tim Burton?");
+        Option[] answers =  {
+                new Solution("Bring on the darkness!", "Edward Scissorhands"),
+                new Answer("Something less morose", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is it Ryan Gosling?"
+    when
+        Answer(question.text == "Would a hunky male help?") and
+        Answer(text == "Yes please!")
+    then
+        Question q = new Question();
+        q.setText("Is it Ryan Gosling?");
+        Option[] answers =  {
+                new Answer("Duh", q),
+                new Answer("Over Him", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "With robots or humans?"
+    when
+        Answer(question.text == "Pixar or disney?") and
+        Answer(text == "Pixar")
+    then
+        Question q = new Question();
+        q.setText("With robots or humans?");
+        Option[] answers =  {
+                new Solution("Robots", "WALL-E"),
+                new Solution("Humans", "Up")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Are you a lover or a fighter?"
+    when
+        Answer(question.text == "Pixar or disney?") and
+        Answer(text == "Disney")
+    then
+        Question q = new Question();
+        q.setText("Are you a lover or a fighter?");
+        Option[] answers =  {
+                new Solution("Fighter", "Tangled"),
+                new Solution("Lover", "Beauty and the Beast")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you like black & white films?"
+    when
+        Answer(question.text == "Do holidays make you swoon?") and
+        Answer(text == "I wish it was Christmas everyday")
+    then
+        Question q = new Question();
+        q.setText("Do you like black & white films?");
+        Option[] answers =  {
+               new Solution("Always love the classics", "It's a Wonderful Life"),
+               new Answer("Maybe something more modern", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Little kids or young adults?"
+    when
+        Answer(question.text == "Do holidays make you swoon?") and
+        Answer(text == "Not really")
+    then
+        Question q = new Question();
+        q.setText("Little kids or young adults?");
+        Option[] answers =  {
+                new Answer("Something for the kiddies, please!", q),
+                new Answer("We have teens in the house", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Male or female lead?"
+     when
+         Answer(question.text == "Military fan?") and
+         Answer(text == "No")
+     then
+         Question q = new Question();
+         q.setText("Male or female lead?");
+         Option[] answers =  {
+                 new Solution("Girls have muscle too!", "Mr. and Mrs. Smith"),
+                 new Solution("Male", "Bourne identity")
+         };
+         q.setOptions(answers);
+         insert(q);
+end
+
+rule "Foreign film?"
+     when
+         Answer(question.text == "Starring an IT girl?") and
+         Answer(text == "No")
+     then
+         Question q = new Question();
+         q.setText("Foreign film?");
+         Option[] answers =  {
+                 new Solution("Oui", "Amélie"),
+                 new Answer("No", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+end
+
+rule "Guys only?"
+     when
+         Answer(question.text == "Judd Apatow film?") and
+         Answer(text == "Pass")
+     then
+         Question q = new Question();
+         q.setText("Guys only?");
+         Option[] answers =  {
+                 new Answer("Bromance is the best", q),
+                 new Answer("Girl Power!", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+rule "Thinking of marriage?"
+     when
+         Answer(question.text == "Judd Apatow film?") and
+         Answer(text == "Yes, please!")
+     then
+         Question q = new Question();
+         q.setText("Thinking of marriage?");
+         Option[] answers =  {
+                 new Solution("Yes", "This is 40"),
+                 new Answer("Nah", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+rule "Are thieves involved?"
+    when
+        Answer(question.text == "Do you like Tim Burton?") and
+        Answer(text == "Something less morose")
+    then
+        Question q = new Question();
+        q.setText("Are thieves involved?");
+        Option[] answers =  {
+             new Solution("I like a bad guy, but not a criminal", "Gone With the Wind"),
+             new Answer("I love danger", q)
+        };
+        q.setOptions(answers);
+    insert(q);
+end
+
+rule "Indie eye candy or classic hunks?"
+    when
+        Answer(question.text == "Is it Ryan Gosling?") and
+        Answer(text == "Over Him")
+    then
+        Question q = new Question();
+        q.setText("Indie eye candy or classic hunks?");
+        Option[] answers =  {
+             new Solution("Indie", "500 Days of Summer"),
+             new Answer("Can't argue with a classic", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is Gosling head over heels in love?"
+    when
+        Answer(question.text == "Is it Ryan Gosling?") and
+        Answer(text == "Duh")
+    then
+        Question q = new Question();
+        q.setText("Is Gosling head over heels in love?");
+        Option[] answers =  {
+             new Answer("If it's not starring me then no", q),
+             new Solution("Yes", "Lars and the Real Girl")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "How many love triangles?"
+    when
+        Answer(question.text == "Do you like black & white films?") and
+        Answer(text == "Maybe something more modern")
+    then
+        Question q = new Question();
+        q.setText("How many love triangles?");
+        Option[] answers =  {
+               new Solution("More than two and it's hard to follow", "The holiday"),
+               new Solution("I love complexity", "Love Actually")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "How about a princess movie?"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "Something for the kiddies, please!")
+    then
+        Question q = new Question();
+        q.setText("How about a princess movie?");
+        Option[] answers =  {
+                new Solution("My son will barf", "Moonrise kingdom"),
+                new Solution("The girls would love that", "Enchanted"),
+                new Solution("Something gender neutral", "The Princess Bride")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Classic or 21st century story?"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "We have teens in the house")
+    then
+        Question q = new Question();
+        q.setText("Classic or 21st century story?");
+        Option[] answers =  {
+                new Answer("Let's teach them a thing or two", q),
+                new Answer("They roll their eyes at anything \"old\"", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Tear jerker?"
+     when
+         Answer(question.text == "Foreign film?") and
+         Answer(text == "No")
+     then
+         Question q = new Question();
+         q.setText("Tear jerker?");
+         Option[] answers =  {
+                 new Solution("I'm not crying... it's just allergies", "Eternal Sunshine of the Spotless Mind"),
+                 new Answer("Prefer to laugh", q)
+         };
+         q.setOptions(answers);
+         insert(q);
+end
+
+rule "Do you like fake Jamaican accents?"
+     when
+         Answer(question.text == "Guys only?") and
+         Answer(text == "Bromance is the best")
+     then
+         Question q = new Question();
+         q.setText("Do you like fake Jamaican accents?");
+         Option[] answers =  {
+                 new Solution("No", "Don Jon"),
+                 new Solution("Ya man!", "I Love You, Man")
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+rule "Is the girl in love?"
+     when
+         Answer(question.text == "Guys only?") and
+         Answer(text == "Girl Power!")
+     then
+         Question q = new Question();
+         q.setText("Is the girl in love?");
+         Option[] answers =  {
+                 new Solution("She's smitten", "Wedding Crashers"),
+                 new Solution("She may be a little unaware", "There's Something About Mary")
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+ rule "International thieves?"
+     when
+         Answer(question.text == "Are thieves involved?") and
+         Answer(text == "I love danger")
+     then
+         Question q = new Question();
+         q.setText("International thieves?");
+         Option[] answers =  {
+              new Answer("America!", q),
+              new Solution("Sure!", "French Kiss")
+         };
+         q.setOptions(answers);
+         insert(q);
+ end
+
+rule "Vegas or NYC?"
+    when
+        Answer(question.text == "International thieves?") and
+        Answer(text == "America!")
+    then
+        Question q = new Question();
+        q.setText("Vegas or NYC?");
+        Option[] answers =  {
+           new Solution("Vegas!", "Ocean's Eleven"),
+           new Solution("NYC", "The Thomas Crown Affair")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Tom Cruise?"
+    when
+        Answer(question.text == "Indie eye candy or classic hunks?") and
+        Answer(text == "Can't argue with a classic")
+    then
+        Question q = new Question();
+        q.setText("Tom Cruise?");
+        Option[] answers =  {
+             new Answer("No way", q),
+             new Answer("Now you're talking", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Would you care to dance?"
+    when
+        Answer(question.text == "Tom Cruise?") and
+        Answer(text == "No way")
+    then
+        Question q = new Question();
+        q.setText("Would you care to dance?");
+        Option[] answers =  {
+             new Answer("I like a man with moves", q),
+             new Solution("I prefer a singer", "Grease")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "90s or 80s Tom?"
+    when
+        Answer(question.text == "Tom Cruise?") and
+        Answer(text == "Now you're talking")
+    then
+        Question q = new Question();
+        q.setText("90s or 80s Tom?");
+        Option[] answers =  {
+             new Solution("80s", "Cocktail"),
+             new Solution("90s", "Jerry Maguire")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is he a playboy?"
+    when
+        Answer(question.text == "Is Gosling head over heels in love?") and
+        Answer(text == "If it's not starring me then no")
+    then
+        Question q = new Question();
+        q.setText("Is he a playboy?");
+        Option[] answers =  {
+             new Solution("OK", "Crazy, Stupid Love"),
+             new Solution("No, he's a family man", "Blue Valentine")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Pick a hepburn"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "Let's teach them a thing or two")
+    then
+        Question q = new Question();
+        q.setText("Pick a hepburn");
+        Option[] answers =  {
+                new Solution("Audrey!", "Roman Holiday"),
+                new Solution("Katherine!", "The Philadelphia Story")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "What if it's about high school?"
+    when
+        Answer(question.text == "Little kids or young adults?") and
+        Answer(text == "They roll their eyes at anything \"old\"")
+    then
+        Question q = new Question();
+        q.setText("What if it's about high school?");
+        Option[] answers =  {
+                new Solution("That could work", "10 Things I Hate About You"),
+                new Answer("Pass", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do they like musicals?"
+    when
+        Answer(question.text == "What if it's about high school?") and
+        Answer(text == "Pass")
+    then
+        Question q = new Question();
+        q.setText("Do they like musicals?");
+        Option[] answers =  {
+                new Answer("Definitely no", q),
+                new Answer("We're basically the Von Trapp Family", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you want to avoid the awkward love scenes at all costs?"
+    when
+        Answer(question.text == "Do they like musicals?") and
+        Answer(text == "Definitely no")
+    then
+        Question q = new Question();
+        q.setText("Do you want to avoid the awkward love scenes at all costs?");
+        Option[] answers =  {
+                new Solution("Yes, please", "Meet the Parents"),
+                new Solution("A kiss isn't going to kill anyone", "Juno")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Do you prefer 80s or 2000s?"
+    when
+        Answer(question.text == "Do they like musicals?") and
+        Answer(text == "We're basically the Von Trapp Family")
+    then
+        Question q = new Question();
+        q.setText("Do you prefer 80s or 2000s?");
+        Option[] answers =  {
+                new Solution("80s", "Hairspray"),
+                new Solution("2000s", "Mamma Mia")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Swayze or Bacon?"
+    when
+        Answer(question.text == "Would you care to dance?") and
+        Answer(text == "I like a man with moves")
+    then
+        Question q = new Question();
+        q.setText("Swayze or Bacon?");
+        Option[] answers =  {
+             new Solution("Bacon", "Footloose"),
+             new Solution("Swayze", "Dirty Dancing")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Starring Julia Roberts?"
+    when
+        Answer(question.text == "Do you want to cry?") and
+        Answer(text == "I'd rather not")
+    then
+        Question q = new Question();
+        q.setText("Starring Julia Roberts?");
+        Option[] answers =  {
+                new Answer("YES", q),
+                new Answer("No Thanks", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Is marriage involved?"
+    when
+        Answer(question.text == "Starring Julia Roberts?") and
+        Answer(text == "YES")
+    then
+        Question q = new Question();
+        q.setText("Is marriage involved?");
+        Option[] answers =  {
+                new Answer("More a fan of the meet cute", q),
+                new Answer("Who doesn't love a wedding?", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Rat pack fan?"
+    when
+        Answer(question.text == "Starring Julia Roberts?") and
+        Answer(text == "No Thanks")
+    then
+        Question q = new Question();
+        q.setText("Rat pack fan?");
+        Option[] answers =  {
+                new Answer("Who?", q),
+                new Answer("Duh!", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Does Molly Ringwald lead the pack?"
+    when
+        Answer(question.text == "Rat pack fan?") and
+        Answer(text == "Duh!")
+    then
+        Question q = new Question();
+        q.setText("Does Molly Ringwald lead the pack?");
+        Option[] answers =  {
+                new Solution("I prefer democracy", "Breakfast Club"),
+                new Answer("Always!", q)
+        };
+        q.setOptions(answers);
+        insert(q);
+end
+
+rule "Did you forget her birthday?"
+    when
+        Answer(question.text == "Does Molly Ringwald lead the pack?") and
+        Answer(text == "Always!")
+    then
+        Question q = new Question();
+        q.setText("Did you forget her birthday?");
+        Option[] answers =  {
+                new Solution("No Way!", "Pretty in Pink"),
+                new Solution("Maybe?", "Sixteen Candles")
+        };
+        q.setOptions(answers);
+        insert(q);
+end
